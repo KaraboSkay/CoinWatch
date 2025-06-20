@@ -1,5 +1,7 @@
 # CoinWatch
 
+![App Preview](https://github.com/KaraboSkay/CoinWatch/blob/master/src/assets/coinwatch.png)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
 
 ## Development server
