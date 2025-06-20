@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 interface Coin {
   id: string;
@@ -15,27 +15,32 @@ interface Coin {
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnChanges {
 
   @Input() coins: Coin[] = [];
-  @Input() filteredCoins:  Coin[] = [];
+  @Output() coinsFiltered = new EventEmitter<Coin[]>();
 
-  searchText = ''
-  
-  searchCoin() {
-    console.log('searchCoin function called');
-    console.log('searchText: ', this.searchText);
-    console.log('coins: ', this.coins);
-    console.log('filteredCoins: ', this.filteredCoins);
-
-    this.filteredCoins = this.coins.filter(coin =>
-      coin.name.toLowerCase().includes(this.searchText.toLowerCase()));
-  }
-
-  constructor() { }
+  searchText: string = '';
+  filteredCoins: Coin[] = [];
 
   ngOnInit(): void {
-
+    this.filteredCoins = this.coins;
+    this.coinsFiltered.emit(this.filteredCoins);
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['coins']) {
+      this.filteredCoins = this.coins;
+      this.coinsFiltered.emit(this.filteredCoins);
+    }
   }
+
+  searchCoin(): void {
+    const query = this.searchText.toLowerCase().trim();
+    this.filteredCoins = this.coins.filter(coin =>
+      coin.name.toLowerCase().includes(query) ||
+      coin.symbol.toLowerCase().includes(query)
+    );
+    this.coinsFiltered.emit(this.filteredCoins);
+  }
+}

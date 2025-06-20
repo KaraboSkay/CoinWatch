@@ -1,4 +1,4 @@
-import { Component , Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 interface Coin {
   id: string;
@@ -17,15 +17,5 @@ interface Coin {
 })
 export class TableComponent {
   @Input() coins: Coin[] = [];
-  @Input() filteredCoins:  Coin[] = [];
-  titles: string[] = [
-    '#',
-    'Coin',
-    'Price',
-    'Price Change',
-    '24h Volume',
-  ];
-
-  constructor() { }
-
+  @Input() titles: string[] = ['#', 'Coin', 'Price', 'Price Change', '24h Volume'];
 }

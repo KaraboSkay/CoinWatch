@@ -1,4 +1,2 @@
-<app-header></app-header>
-<!-- TO BE RESUMED<app-search [coins]="filteredCoins"></app-search> -->
-<app-table [coins]="filteredCoins" ></app-table>
-<!-- TO BE RESUMED<app-footer></app-footer> -->
+<app-search [coins]="coins" (coinsFiltered)="onCoinsFiltered($event)"></app-search>
+<app-table [coins]="filteredCoins" [titles]="titles"></app-table>
